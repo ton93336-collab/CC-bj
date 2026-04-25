@@ -1,0 +1,147 @@
+:root {
+    --bg-base: #ffe8ee; /* สีชมพูพื้นฐาน */
+    --card-bg: #ffffff;
+    --primary: #f883a2; /* ชมพูเข้ม */
+    --primary-hover: #ff6b93;
+    --text-dark: #5c434a; /* น้ำตาลเข้ม/ชมพูหม่น */
+    --text-muted: #9e828a;
+    --border-light: #ffd1dc;
+    --shadow-soft: 0 15px 40px rgba(248, 131, 162, 0.15);
+    --shadow-sm: 0 4px 15px rgba(248, 131, 162, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Prompt', sans-serif; }
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* พื้นหลังสุดน่ารัก (ตารางเบาๆ) */
+.bg-pattern {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+    background-image: linear-gradient(var(--border-light) 1px, transparent 1px), linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+    background-size: 30px 30px; opacity: 0.3;
+}
+
+/* เอฟเฟกต์วิบวับ */
+.sparkles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+.sparkle { position: absolute; font-size: 24px; opacity: 0; animation: twinkle 3s infinite ease-in-out; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8)); }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.6; transform: scale(1.2); } }
+
+/* ================= คอนเทนเนอร์หลัก (Card) ================= */
+.app-container {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 420px; /* ขนาดเป๊ะๆ แบบมือถือ/Carrd */
+    min-height: 600px;
+    border-radius: 40px;
+    box-shadow: var(--shadow-soft);
+    padding: 35px 25px;
+    position: relative;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    overflow: hidden; /* ซ่อนส่วนเกิน */
+}
+
+/* การสลับหน้า (SPA) */
+.view { display: none; animation: slideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+.view.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ================= หน้า Profile (Home) ================= */
+.profile-header { text-align: center; margin-bottom: 25px; }
+.profile-ring { width: 130px; height: 130px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #ffd1dc, #ff9eb5); position: relative; box-shadow: var(--shadow-sm); }
+.profile-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--card-bg); }
+
+.brand-name { font-family: 'Mali', cursive; font-size: 26px; color: var(--primary); font-weight: 700; margin-bottom: 5px; text-shadow: 1px 1px 0px #ffe8ee; }
+.brand-badge { display: inline-block; background: var(--bg-base); color: var(--primary); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; border: 1px dashed var(--primary); }
+.bio { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-weight: 400; }
+
+.social-row { display: flex; justify-content: center; gap: 15px; }
+.social-icon { display: flex; justify-content: center; align-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--bg-base); color: var(--primary); font-size: 18px; text-decoration: none; transition: 0.3s; border: 1px solid var(--border-light); }
+.social-icon:hover { background: var(--primary); color: white; transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+
+/* เมนูหลัก (List Buttons) */
+.menu-list { display: flex; flex-direction: column; gap: 12px; }
+.menu-item { background: #ffffff; border: 2px solid var(--bg-base); border-radius: 20px; padding: 12px 18px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+.menu-item:hover { border-color: var(--primary); background: #fffcfd; transform: scale(1.02); }
+.menu-icon { width: 35px; height: 35px; border-radius: 50%; background: var(--bg-base); color: var(--primary); display: flex; justify-content: center; align-items: center; font-size: 14px; margin-right: 15px; transition: 0.3s; }
+.menu-item:hover .menu-icon { background: var(--primary); color: white; }
+.menu-text { flex-grow: 1; text-align: left; font-weight: 600; font-size: 14px; color: var(--text-dark); }
+.menu-arrow { color: var(--border-light); font-size: 12px; transition: 0.3s; }
+.menu-item:hover .menu-arrow { color: var(--primary); transform: translateX(3px); }
+
+.footer-credit { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 30px; font-weight: 300; }
+
+/* ================= หน้าย่อย (Sub-pages) ================= */
+.btn-back { background: transparent; border: none; color: var(--text-muted); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; transition: 0.3s; }
+.btn-back:hover { color: var(--primary); transform: translateX(-3px); }
+
+.page-header { font-family: 'Mali', cursive; font-size: 22px; color: var(--primary); margin-bottom: 20px; border-bottom: 2px dashed var(--border-light); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+
+/* กล่องข้อมูล (Info Cards) */
+.info-card { background: var(--bg-base); border-radius: 25px; padding: 25px; margin-bottom: 25px; border: 1px solid var(--border-light); }
+.desc-text { font-size: 13px; color: var(--text-dark); margin-bottom: 15px; text-align: center; }
+.sub-title { font-family: 'Mali', cursive; font-size: 16px; color: var(--primary); margin-bottom: 12px; }
+.price-list { list-style: none; font-size: 13px; }
+.price-list li { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.05); padding-bottom: 5px; }
+.divider { height: 1px; background: dashed var(--border-light); margin: 15px 0; border-top: 2px dashed var(--border-light); }
+.rule-list { list-style: none; font-size: 13px; }
+.rule-list li { margin-bottom: 8px; position: relative; padding-left: 20px; color: var(--text-muted); }
+.rule-list li::before { content: "✨"; position: absolute; left: 0; top: 0; font-size: 12px; }
+
+/* ถามตอบ & วิธีสั่งซื้อ */
+.qa-box { margin-bottom: 15px; }
+.q { font-weight: 600; color: var(--text-dark); font-size: 13px; }
+.a { color: var(--text-muted); font-size: 13px; padding-left: 15px; border-left: 2px solid var(--primary); margin-top: 4px; }
+.step-list { list-style: none; }
+.step-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 13px; background: white; padding: 8px 12px; border-radius: 12px; }
+.step-num { background: var(--primary); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; }
+
+/* แกลลอรี่ผลงาน */
+.gallery-title { text-align: center; font-family: 'Mali', cursive; font-size: 18px; color: var(--text-dark); margin-bottom: 15px; }
+.gallery { display: grid; gap: 20px; }
+.work-card { background: white; border-radius: 20px; padding: 12px; border: 2px solid var(--bg-base); box-shadow: 0 4px 10px rgba(0,0,0,0.02); text-align: center; }
+.img-box { position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 12px; aspect-ratio: 16/9; background: #f9f9f9; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 0.3s; }
+.img-box.zoomable img { cursor: zoom-in; }
+.img-box.zoomable img:hover { transform: scale(1.05); }
+.work-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
+.btn-action { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.3s; width: 100%; text-decoration: none; display: inline-block; }
+.btn-action:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+/* ================= Admin & Modals ================= */
+.admin-trigger { position: fixed; bottom: 20px; right: 20px; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; color: var(--border-light); cursor: pointer; box-shadow: var(--shadow-sm); z-index: 100; transition: 0.3s; }
+.admin-trigger:hover { color: var(--primary); }
+
+.admin-edit-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: none; width: 32px; height: 32px; border-radius: 50%; color: var(--primary); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: none; transition: 0.2s; z-index: 10; }
+.admin-edit-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
+body.is-admin .admin-edit-btn { display: block; }
+body.is-admin [contenteditable="true"] { border-bottom: 2px dashed var(--primary); outline: none; background: rgba(248, 131, 162, 0.1); border-radius: 5px; padding: 2px 5px; }
+
+/* Modals Overlay */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 232, 238, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 1; transition: 0.3s; }
+.modal-overlay.dark { background: rgba(0,0,0,0.85); }
+.modal-box { background: white; width: 85%; max-width: 320px; padding: 35px 25px; border-radius: 35px; text-align: center; position: relative; box-shadow: var(--shadow-soft); border: 2px solid var(--border-light); transform: scale(1); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.hidden { opacity: 0; pointer-events: none; visibility: hidden; }
+.hidden .modal-box { transform: scale(0.8); }
+
+.close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
+.close-btn:hover { color: var(--primary); transform: rotate(90deg); }
+.close-btn.white { color: white; right: 20px; top: 20px; font-size: 28px; }
+
+.modal-icon { font-size: 40px; margin-bottom: 10px; }
+.modal-title { font-family: 'Mali', cursive; color: var(--primary); font-size: 20px; margin-bottom: 10px; }
+.modal-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+#modal-img-display { max-width: 90%; max-height: 80vh; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain; }
+
+.input-cute { width: 100%; padding: 12px; border: 2px solid var(--bg-base); border-radius: 15px; text-align: center; font-size: 14px; outline: none; transition: 0.3s; background: #fafafa; }
+.input-cute:focus { border-color: var(--primary); background: white; }
+.error-text { color: #ff4d4d; font-size: 12px; margin-top: 8px; }
